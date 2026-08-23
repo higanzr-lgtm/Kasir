@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.kasir' => \App\Http\Middleware\AuthKasirMiddleware::class,
             'auth.customer' => \App\Http\Middleware\AuthCustomerMiddleware::class,
             'auth.owner' => \App\Http\Middleware\AuthOwnerMiddleware::class,
+            'auth.kurir' => \App\Http\Middleware\AuthKurirMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

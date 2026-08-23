@@ -10,7 +10,6 @@ class UserKaryawan extends Model
     protected $table = 'user_karyawans';
     protected $primaryKey = 'id_user';
 
-    // Atribut yang boleh diisi (Public)
     protected $fillable = ['nama', 'email', 'role', 'username', 'password', 'email_verified_at'];
 
     protected $casts = [

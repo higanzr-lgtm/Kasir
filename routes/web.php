@@ -7,6 +7,7 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KurirController;
 
 // ========== HALAMAN PUBLIK (Tanpa Login) ==========
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
@@ -45,6 +46,20 @@ Route::middleware(['auth.owner'])->group(function () {
     Route::get('/owner', [OwnerController::class, 'index'])->name('owner.dashboard');
     Route::post('/owner/produk/tambah', [OwnerController::class, 'tambahProduk'])->name('owner.produk.tambah');
     Route::delete('/owner/produk/hapus/{id}', [OwnerController::class, 'hapusProduk'])->name('owner.produk.hapus');
+    Route::post('/owner/produk/update-barang/{id}', [OwnerController::class, 'updateBarang'])->name('owner.produk.update-barang');
     Route::get('/owner/transaksi/{id}', [OwnerController::class, 'getTransaksi'])->name('owner.transaksi.get');
     Route::put('/owner/user/update-role/{id}', [OwnerController::class, 'updateRole'])->name('owner.user.update-role');
+    Route::post('/owner/pesanan/sampai/{id}', [OwnerController::class, 'konfirmasiSampai'])->name('owner.pesanan.sampai');
+    Route::post('/owner/promo/tambah', [OwnerController::class, 'tambahPromo'])->name('owner.promo.tambah');
+    Route::post('/owner/bundle/tambah', [OwnerController::class, 'tambahBundle'])->name('owner.bundle.tambah');
+    Route::delete('/owner/bundle/hapus/{id}', [OwnerController::class, 'hapusBundle'])->name('owner.bundle.hapus');
+    Route::post('/owner/bundle/toggle/{id}', [OwnerController::class, 'toggleBundle'])->name('owner.bundle.toggle');
+});
+
+// Halaman Kurir (hanya role Kurir)
+Route::middleware(['auth.kurir'])->group(function () {
+    Route::get('/kurir', [KurirController::class, 'index'])->name('kurir.dashboard');
+    Route::post('/kurir/kirim/{id}', [KurirController::class, 'kirim'])->name('kurir.kirim');
+    Route::post('/kurir/sampai/{id}', [KurirController::class, 'konfirmasiSampai'])->name('kurir.sampai');
+    Route::post('/kurir/lokasi/{id}', [KurirController::class, 'updateLokasi'])->name('kurir.lokasi');
 });
